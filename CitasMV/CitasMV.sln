@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Citas", "Citas", "{B7E35F66-272B-E770-5835-EF50CFA97384}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitasMV", "Citas\CitasMV\CitasMV.csproj", "{1FC7AE14-CAC9-98BD-C95B-BF857DE1AE3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FC7AE14-CAC9-98BD-C95B-BF857DE1AE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC7AE14-CAC9-98BD-C95B-BF857DE1AE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC7AE14-CAC9-98BD-C95B-BF857DE1AE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC7AE14-CAC9-98BD-C95B-BF857DE1AE3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1FC7AE14-CAC9-98BD-C95B-BF857DE1AE3A} = {B7E35F66-272B-E770-5835-EF50CFA97384}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9061EB0F-E237-4586-BB74-5FA7DE567EF2}
+	EndGlobalSection
+EndGlobal

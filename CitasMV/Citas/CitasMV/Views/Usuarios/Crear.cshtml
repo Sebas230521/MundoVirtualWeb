@@ -1,0 +1,66 @@
+@{
+    ViewData["Title"] = "Crear nuevo usuario";
+}
+
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="text-center mb-4">Registrar nuevo usuario</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+        @if (ViewBag.Mensaje != null)
+        {
+            <div class="alert alert-success">@ViewBag.Mensaje</div>
+        }
+
+        <form asp-action="Crear" method="post">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Cédula / Identificación</label>
+                    <input type="text" name="IdentificUsa" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="NombreUsa" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Primer Apellido</label>
+                    <input type="text" name="Apellido1Usa" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Segundo Apellido</label>
+                    <input type="text" name="Apellido2Usa" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Cargo</label>
+                    <input type="text" name="CargoUsar" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Dependencia</label>
+                    <input type="text" name="DepenUsar" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nombre de entrada (usuario)</label>
+                    <input type="text" name="NombreEntrada" class="form-control" maxlength="12" required />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Clave secreta</label>
+                    <input type="password" name="SecretoUsa" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success me-3">Guardar</button>
+                <a href="/Home/Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

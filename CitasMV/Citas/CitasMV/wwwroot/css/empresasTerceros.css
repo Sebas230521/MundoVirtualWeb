@@ -1,0 +1,30 @@
+.bg-gradient-success {
+    background: linear-gradient(135deg, #20c997, #198754);
+}
+
+.section-title {
+    border-bottom: 2px solid #198754;
+    padding-bottom: 4px;
+}
+
+.form-label {
+    font-size: 0.9rem;
+}
+
+.card {
+    background: #f9fdfb;
+}
+
+.btn {
+    min-width: 110px;
+    font-weight: 600;
+}
+
+input.form-control, select.form-select {
+    border-radius: 0.4rem;
+}
+
+.card-header h4 {
+    letter-spacing: 0.5px;
+}
+
