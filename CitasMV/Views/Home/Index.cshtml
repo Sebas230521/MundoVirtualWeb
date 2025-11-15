@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+    var nombre = Context.Session.GetString("usuario");
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Virtual Salud ERP</title>
+    <link rel="icon" href="~/favicon/logo_mundovirtual.png">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/index.css" rel="Stylesheet">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <h4>@nombre</h4>
+            <p>¡Bienvenido al sistema Operativo!</p>
+
+            <div class="menu">
+                <a asp-controller="Usuarios" asp-action="Crear">Crear Usuario</a>      
+            </div>
+
+            <div class="menu">
+                <a asp-controller="GestionTarifas" asp-action="GestionTarifas">Gestión Tarifas</a>   
+            </div>
+            <div class="menu">
+                <a asp-controller="Entidades" asp-action="EmpresasTerceros">Entidades</a>      
+            </div>
+            
+        </div>
+
+        <form asp-controller="Auth" asp-action="Logout" method="post">
+            <button type="submit" class="btn-logout">Cerrar sesión</button>
+        </form>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <h2>Bienvenido @nombre 👋</h2>
+        <p>Has iniciado sesión correctamente. Usa el menú lateral para navegar y empezar con tus tareas pendientes.</p>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
