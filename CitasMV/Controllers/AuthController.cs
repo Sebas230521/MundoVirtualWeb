@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
 
 namespace CitasMV.Controllers
@@ -42,8 +42,8 @@ namespace CitasMV.Controllers
 
                     // Consulta parametrizada para evitar inyección SQL
                     string query = @"SELECT COUNT(*) 
-                                     FROM Tabla_Prueba_Conexion_Sql 
-                                     WHERE usuario = @usuario AND pass = @pass";
+                                    FROM Datos_usuarios_de_los_aplicativos
+                                    WHERE NombreEntrada = @usuario AND SecretoUsa = @pass";
 
                     using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
@@ -75,7 +75,6 @@ namespace CitasMV.Controllers
                 ViewBag.Error = $"Error al intentar conectar con la base de datos: {ex.Message}";
                 return View();
             }
-            
         }
 
         // GET: /Auth/Logout

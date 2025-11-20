@@ -1,0 +1,245 @@
+@model CitasMV.Models.PacienteModel
+@{
+    ViewData["Title"] = "Crear nuevo paciente";
+}
+
+<div class="container mt-3">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Registro de Paciente</h5>
+        </div>
+
+        <div class="card-body">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">Por favor corrija los errores del formulario.</div>
+            }
+
+            <form asp-action="Crear" method="post" class="row g-3">
+                @Html.AntiForgeryToken()
+
+                <!-- Sección 1: Datos básicos -->
+                <div class="card mb-2 col-12">
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-md-3">
+                                <label asp-for="HistorPaci" class="form-label">Historia clínica</label>
+                                <input asp-for="HistorPaci" class="form-control" />
+                                <span asp-validation-for="HistorPaci" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="TipoIden" class="form-label">Tipo identificación</label>
+                                <select asp-for="TipoIden" class="form-select" asp-items="@(ViewBag.TipoIden as List<SelectListItem>)"></select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="NumIden" class="form-label">Número identificación</label>
+                                <input asp-for="NumIden" class="form-control" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="Sexo" class="form-label">Sexo</label>
+                                <select asp-for="Sexo" class="form-select">
+                                    <option value="M">Masculino</option>
+                                    <option value="F" selected>Femenino</option>
+                                    <option value="I">Indeterminado</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="Nombre1" class="form-label">Primer nombre</label>
+                                <input asp-for="Nombre1" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="Nombre2" class="form-label">Segundo nombre</label>
+                                <input asp-for="Nombre2" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="Apellido1" class="form-label">Primer apellido</label>
+                                <input asp-for="Apellido1" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="Apellido2" class="form-label">Segundo apellido</label>
+                                <input asp-for="Apellido2" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="FechaNaci" class="form-label">Fecha de nacimiento</label>
+                                <input asp-for="FechaNaci" type="date" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="EstadoCivil" class="form-label">Estado civil</label>
+                                <select asp-for="EstadoCivil" class="form-select" asp-items="@(ViewBag.EstadosCiviles as List<SelectListItem>)">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 2: Lugar de nacimiento -->
+                <div class="card mb-2 col-12">
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <label asp-for="CodPaisNace" class="form-label">País nacimiento</label>
+                                <select asp-for="CodPaisNace" id="paisNacimiento" class="form-select" asp-items="@(ViewBag.Paises as List<SelectListItem>)"></select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="CodDptoNace" class="form-label">Departamento nacimiento</label>
+                                <select asp-for="CodDptoNace" id="dptoNacimiento" class="form-select">
+                                    <option value="">-- Seleccione --</option>
+                                    @* Se llenará vía AJAX si se desea filtrar por país *@
+                                    @foreach (var d in (ViewBag.Departamentos as List<SelectListItem>))
+                                    {
+                                        <option value="@d.Value">@d.Text</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="CodCiuNace" class="form-label">Ciudad nacimiento</label>
+                                <select asp-for="CodCiuNace" id="ciudadNacimiento" class="form-select">
+                                    <option value="">-- Seleccione --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 3: Residencia actual -->
+                <div class="card mb-2 col-12">
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-md-3">
+                                <label asp-for="CodDpto" class="form-label">Departamento residencia</label>
+                                <select asp-for="CodDpto" id="dptoResidencia" class="form-select" asp-items="@(ViewBag.Departamentos as List<SelectListItem>)"></select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="CodMuni" class="form-label">Ciudad residencia</label>
+                                <select asp-for="CodMuni" id="ciudadResidencia" class="form-select">
+                                    <option value="">-- Seleccione --</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="BarrioVive" class="form-label">Barrio</label>
+                                <select asp-for="BarrioVive" id="barrioResidencia" class="form-select">
+                                    <option value="">-- Seleccione --</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <select asp-for="ZonaResiden" class="form-select" asp-items="@(ViewBag.Zonas as List<SelectListItem>)"></select>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="DirecResi" class="form-label">Dirección</label>
+                                <input asp-for="DirecResi" class="form-control" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="TelResi" class="form-label">Teléfono</label>
+                                <input asp-for="TelResi" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 4: Información de aseguramiento y socioeconómica -->
+                <div class="card mb-2 col-12">
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <label asp-for="TipoUsar" class="form-label">Tipo Usuario</label>
+                                <select asp-for="TipoUsar" class="form-select" asp-items="@(ViewBag.TiposUsuarios as List<SelectListItem>)"></select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="TipoAfiliado" class="form-label">Tipo Afiliado</label>
+                                <input asp-for="TipoAfiliado" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="NumAfilia" class="form-label">Número afiliación</label>
+                                <input asp-for="NumAfilia" class="form-control" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="EstraNum" class="form-label">Estrato</label>
+                                <select asp-for="EstraNum" class="form-select" asp-items="@(ViewBag.Estratos as List<SelectListItem>)"></select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="GrupoEtni" class="form-label">Etnia</label>
+                                <select asp-for="GrupoEtni" class="form-select" asp-items="@(ViewBag.Etnia as List<SelectListItem>)"></select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="CodAdmin" class="form-label">Administradora (EPS)</label>
+                                <select asp-for="CodAdmin" class="form-select" asp-items="@(ViewBag.Administradoras as List<SelectListItem>)"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 5: Otros datos -->
+                <div class="card mb-2 col-12">
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label asp-for="Ocupacion" class="form-label">Ocupación</label>
+                                <input asp-for="Ocupacion" class="form-control" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Observaciones" class="form-label">Observaciones</label>
+                                <input asp-for="Observaciones" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4 form-check mt-2">
+                                <input asp-for="Discapacitado" class="form-check-input" type="checkbox" />
+                                <label asp-for="Discapacitado" class="form-check-label">Discapacitado</label>
+                            </div>
+
+                            <div class="col-md-4 form-check mt-2">
+                                <input asp-for="VictimaArmado" class="form-check-input" type="checkbox" />
+                                <label asp-for="VictimaArmado" class="form-check-label">Víctima conflicto armado</label>
+                            </div>
+
+                            <div class="col-md-4 form-check mt-2">
+                                <input asp-for="LGBTI" class="form-check-input" type="checkbox" />
+                                <label asp-for="LGBTI" class="form-check-label">Población LGBTI</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="col-12 d-flex gap-2">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a href="~/Home/Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Referencia al script con AJAX para selects dependientes -->
+    <script src="~/js/pacientes.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
